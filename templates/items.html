@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+<div id="margindown" class="container-fluid">
+  <div class="row">
+    <nav class="col-2 sidenav px-1 position-fixed" id="sticky-sidebar">
+      <a  class="border-bottom pb-3 mb-3" href="/" class="title">Go back to main categories</a>
+      <div class="nav flex-column flex-nowrap vh-100 overflow-auto">
+      {% for item in items %}
+        <a href="{{url_for('showBookInfo', category_id = category.id,item_id=item.id)}}">{{item.name}}</a>
+      {% endfor %}
+      </div>
+    </nav>
+    <!-- Page content -->
+    <div class="offset-2 main col-8">
+      <h2 class="title mb-5">{{category.name}} books</h2><br>
+      <div class="items">
+        {%for item in items%}
+        <div id="container">
+          <h5 class="item font-weight-bold">{{item.name}}:</h5>
+          <!-- <a class="item" href="{{url_for('showBookInfo', category_id=category.id,item_id=item.id)}}">{{item.name}}</a><br> -->
+          <div class="item-content">
+            <div class="ml-2 mb-4 description">
+              {%if not item.description%}
+              There is no description available. Click edit to add one.
+              {%else%}
+              {{item.description}}
+              {%endif%}
+            </div>
+          </div>
+        </div>
+        {%endfor%}
+      </div>
+      <br> <a class="button" id='add-button' href="{{url_for('newBook', category_id = category.id)}}"> Add a book</a>
+  </div>
+  </div>
+</div>
+{% endblock content %}

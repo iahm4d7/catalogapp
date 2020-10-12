@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- Side navigation -->
+<div id="margindown" class="container-fluid">
+  <div class="row">
+    <nav class="col-2 sidenav px-1 position-fixed" id="sticky-sidebar">
+      <div class="nav flex-column flex-nowrap vh-100 overflow-auto">
+        <a  class="border-bottom pb-3 mb-3" href="/" class="title">Go back to main categories</a>
+      {% for item in items %}
+        <a href="{{url_for('showBookInfo', category_id = category.id,item_id=item.id)}}">{{item.name}}</a>
+      {% endfor %}
+      </div>
+    </nav>
+    <!-- Page content -->
+    <div class="offset-2 main col-8">
+      <div class="item_name">
+        <h4>{{item.name}}</h4>
+      </div>
+      <div class="item-content">
+
+        <div class="description">
+          {%if not item.description%}
+          There is no description available. Click edit to add one.
+          {%else%}
+          {{item.description}}
+          {%endif%}
+        </div>
+      </div>
+      <div class='buttons'>
+        <a class="button" href="{{url_for('editBook', category_id=category.id, item_id=item.id)}}">Edit</a>
+        <a class="button" href="{{url_for('deleteBook', category_id=category.id, item_id=item.id)}}">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

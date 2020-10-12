@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="main mainform">
+
+<div class="content-section">
+  <form action="" method="POST">
+    {{ form.hidden_tag() }}
+    <fieldset class = "form-group">
+      <legend class="text-center">Login</legend>
+
+      <div class="form-group">
+        {{ form.email.label(class="form-control-label") }}
+        {% if form.email.errors %}
+          {{ form.email(class="form-control form-control-sm is-invalid") }}
+          <div class="invalid-feedback">
+          {% for error in form.email.errors %}
+            <span>* {{ error }}</span>
+          {% endfor %}
+          </div>
+        {%else%}
+            {{ form.email(class="form-control form-control-sm") }}
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        {{ form.password.label(class="form-control-label") }}
+        {% if form.password.errors %}
+        {{ form.password(class="form-control form-control-sm is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.password.errors %}
+          <span>* {{ error }}</span>
+          {% endfor %}
+        </div>
+        {%else%}
+          {{ form.password(class="form-control form-control-sm") }}
+        {% endif %}
+      </div>
+
+      <div class="form-check">
+          {{ form.remember(class="form-check-input") }}
+          {{ form.remember.label(class="form-check-label") }}
+      </div>
+    </fieldset>
+
+    <div class="form-group">
+      {{form.submit(class="button form-group form-control-file")}}
+
+      <small><a class=" clickable " href="#">Forgot password</a></small>
+
+    </div>
+
+    <div class="form-group">
+        <legend class="border-bottom mb-2 text-center">Or</legend>
+        <small >
+          <a class="button form-group form-control-file" href="{{url_for('register')}}" class="ml-2">create an account</a>
+        </small>
+    </div>
+
+
+  </form>
+</div>
+
+
+</div>
+
+
+{% endblock content %}
