@@ -3,19 +3,26 @@ from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
+from catalogapp import login_manager
+from flask_login import UserMixin
+
 
 Base = declarative_base()
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
 """User class """
-
-
-class User(Base):
+class User(Base, UserMixin):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
-    picture = Column(String(250))
+    password = Column(String(60),nullable=False)
+    image_file = Column(String(20), nullable=False, default='default.jpg')
 
 """Category class """
 
@@ -58,5 +65,6 @@ class Book(Base):
             'name': self.name,
         }
 
-engine = create_engine('sqlite:///books_catalog.db')
+# engine = create_engine('sqlite:///books_catalog.db')
+engine = create_engine('sqlite:///books_catalog2.db')
 Base.metadata.create_all(engine)

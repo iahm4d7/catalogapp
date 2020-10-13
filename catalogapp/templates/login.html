@@ -2,7 +2,15 @@
 
 {% block content %}
 <div class="main mainform">
-
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
 <div class="content-section">
   <form action="" method="POST">
     {{ form.hidden_tag() }}
@@ -51,7 +59,7 @@
     </div>
 
     <div class="form-group">
-        <legend class="border-bottom mb-2 text-center">Or</legend>
+        <legend class="mb-2 text-center">Or</legend>
         <small >
           <a class="button form-group form-control-file" href="{{url_for('register')}}" class="ml-2">create an account</a>
         </small>

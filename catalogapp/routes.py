@@ -1,58 +1,51 @@
-from flask import Flask, render_template, request, redirect, jsonify, \
+from catalogapp import app, session, bcrypt
+from catalogapp.database_setup import Category, Book, User, Base
+from flask_login import login_user, current_user, logout_user, login_required
+from catalogapp.forms import RegistrationForm, LoginForm
+from flask import render_template, request, redirect, jsonify, \
  url_for,  flash
-from sqlalchemy import create_engine, asc
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.pool import SingletonThreadPool
-from database_setup import Category, Book, User, Base
 from flask import session as login_session
+
+from flask import make_response
+from sqlalchemy import asc
 import random
 import string
 import httplib2
 import json
-from flask import make_response
 import requests
-from forms import RegistrationForm, LoginForm
-
-
-
-app = Flask(__name__)
-
-
-# Connect to Database
-engine = create_engine('sqlite:///books_catalog.db',
-                       connect_args={'check_same_thread': False})
-
-Base.metadata.bind = engine
-
-DBSession = sessionmaker(bind=engine)
-session = DBSession()
 
 @app.route("/register", methods=['GET','POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8') #encrypt password
+        user = User(name=form.username.data, email=form.email.data, password=hashed_password) #create user instance
+        session.add(user)
+        session.commit()
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('showLogin'))
-        return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title='Register', form=form)
 
-@app.route('/login')
+@app.route('/login', methods=['GET','POST'])
 def showLogin():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.email.data == 'admin@blog.com' and form.password.data == 'password':
-            flash('You have been logged in!', 'success')
-            return redirect(url_for('showCatalog'))
+        user = session.query(User).filter_by(email=form.email.data).first() #get username entered if in database
+        if user and bcrypt.check_password_hash(user.password, form.password.data): #is user in db AND password matches?
+            login_user(user, remember=form.remember.data)
+            next_page = request.args.get('next') #this will be a query of the previous vistied page (if not homepage)
+            return redirect(next_page) if next_page else redirect(url_for('home')) #if there's no next than go to homepage
         else:
             flash('login unsuccessful, please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
-def createUser(login_session):
-    newUser = User(name=login_session['username'], email=login_session[
-                   'email'], picture=login_session['picture'])
-    session.add(newUser)
-    session.commit()
-    user = session.query(User).filter_by(email=login_session['email']).one()
-    return user.id
+# def createUser(login_session):
+#     newUser = User(name=login_session['username'], email=login_session[
+#                    'email'], picture=login_session['picture'])
+#     session.add(newUser)
+#     session.commit()
+#     user = session.query(User).filter_by(email=login_session['email']).one()
+#     return user.id
 
 
 def getUserInfo(user_id):
@@ -173,9 +166,3 @@ def deleteBook(category_id, item_id):
         return redirect(url_for('showBooks', category_id=category_id))
     else:
         return render_template('deleteitem.html', book=book)
-
-
-if __name__ == '__main__':
-    app.secret_key = 'super_secret_key'
-    app.debug = True
-    app.run(host='0.0.0.0', port=5000)

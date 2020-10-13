@@ -2,9 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
-from database_setup import Category, Book, User, Base
+from catalogapp.database_setup import Category, Book, User, Base
 
-engine = create_engine('sqlite:///books_catalog.db')
+engine = create_engine('sqlite:///books_catalog2.db')
 
 # Clear database
 

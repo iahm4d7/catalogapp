@@ -3,21 +3,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
 body {
-  /* font-family: Secular One, sans-serif !important; */
+  /* font-family: Secular One, sans-serif; */
+  background-color: black;
   font-weight: 50 !important;
-  background-size: cover; /* Resize the background image to cover the entire container */
-  margin-top: 0px;
-  max-resolution: 0px;
-  background-color: #white;
-  margin-right: 0px;
-  margin-left: 0px;
+  overflow-x: hidden;
 }
+
 
 #margindown {
   margin-top: 61px !important;
 }
 
 .form-control-sm {
+  color: white !important;
+  background-color: #0c0c0c !important;
   border-radius: 30px !important;
 }
 .content-section {
@@ -36,89 +35,56 @@ a {
 
 .header {
   border-bottom: 1px solid #f95c00;
-  box-shadow: 2px 2px 10px #b5b5b5;
-  background-color: white !important;
+  box-shadow: 2px 2px 10px black;
+  background-color: #0c0c0c !important;
   color: #f95c00;
 }
 
 .navbar-brand {
   font-family: 'Lobster', cursive !important;
   font-size: 30px!important;
-  color: #f95c00 !important;
+  color: #fff !important;
   padding: 0px !important;
 }
 
 
 .main{
-  padding-top: 2%;
-  background-color: #ffffff;
-  padding-left: 1%;
-  padding-bottom: 2%;
-  color: black;
+  color: white;
 }
 
 .mainform {
   margin: auto;
-  padding: 100px !important;
-  margin-top: 50px !important;
-  padding-top: 34px !important;
-  width: fit-content !important;
+  margin-top: 80px !important;
 }
 
 #newitem-main{padding-left: 15px;}
 
 .title{
   display: inline-block;
-  color: #f95c00;
+  color: white;
   font-size: 25px;
   margin-top: 0px;
   text-decoration: none;
 }
 
-.main-container {
-  display: flex;
+#backbutton {
+  border-bottom: 2px solid #2d2d2d;
+}
+
+.container {
+  background-color: #0c0c0c;
+  border: 1px solid #2d2d2d;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  padding: 10px;
 }
 
 .sidenav {
-   height: calc(100vh - 80px);
-   background-color: black;
-   padding-top: 20px;
+  padding: 7px;
 }
-
-@media screen and (max-width: 700px) {
-  .sidenav {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-  .sidenav a {float: none;}
-  .main {
-    margin-left: 0px;
-    margin-right: 0px;
-    text-align: center;
-  }
-  .description {
-    font-size: 30px ;
-    margin: auto;
-    max-width: 80
-  }
-  h3 {
-    font-size: 15px !important;
-    text-align: center;
-  }
-}
-
-
-@media screen and (max-width: 400px) {
-  .sidenav a {
-    text-align: center;
-    float: none;
-  }
-}
-
 
 .sidenav a {
-  padding: 6px 8px 6px 16px;
+  padding: 6px 2px 6px 6px;
   font-size: 15px;
   color: white;
   border-bottom: 1px solid transparent;
@@ -129,15 +95,15 @@ a {
 
 ::-webkit-scrollbar {
   width: 5px;
+  background: #0c0c0c
 }
 ::-webkit-scrollbar-thumb {
-  background: #f95c00;
+  background: #2d2d2d ;
   border-radius: 29px;
 }
 
 .sidenav a:hover {
   color: #f95c00;
-  border-bottom: 1px solid #f95c00;
 }
 
 h4 {
@@ -145,19 +111,11 @@ h4 {
   margin-bottom: 4px;
 }
 
-.item {
-  color: black;
+.row {
+  padding-top: 10px;
+  background-color: black;
 }
-
-
 #item-block{padding: 5px 0px;}
-
-.description {
-  color: black;
-  font-size: 20px;
-  max-width: 50%;
-}
-
 
 .buttons {
   margin-top: 20px;
@@ -188,12 +146,9 @@ h4 {
 }
 
 #login-button {
-  color: #f95c00;
-  border: 1px solid transparent;}
-
-#login-button:hover{
-  color: black;
+  color: white;
 }
+
 
 .form-group {margin-top: 10px;}
 

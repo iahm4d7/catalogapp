@@ -3,16 +3,9 @@
 <!-- Side navigation -->
 <div id="margindown" class="container-fluid">
   <div class="row">
-    <nav class="col-2 sidenav px-1 position-fixed" id="sticky-sidebar">
-      <div class="nav flex-column flex-nowrap vh-100 overflow-auto">
-        <a  class="border-bottom pb-3 mb-3" href="/" class="title">Go back to main categories</a>
-      {% for item in items %}
-        <a href="{{url_for('showBookInfo', category_id = category.id,item_id=item.id)}}">{{item.name}}</a>
-      {% endfor %}
-      </div>
-    </nav>
+      {% include "sidenav.html" %}
     <!-- Page content -->
-    <div class="offset-2 main col-8">
+    <div class="offset-2 main col-10 col-md-8">
       <div class="item_name">
         <h4>{{item.name}}</h4>
       </div>

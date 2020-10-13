@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+    <title>Books categories</title>
+  </head>
+  <body>
+    <div class="row justify-content-center">
+      <nav class="fixed-top navbar header navbar-expand-lg navbar-dark container-fluid">
+          <div class="col-9  navbar-brand  col align-self-start">
+            <a class="navbar-brand" href="/"><strong class="mr-1">Book</strong>Category.com</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class=" collapse navbar-collapse " id="navbarNav">
+            <div class="mx-auto navbar-nav">
+                  <a class="nav-item nav-link" id="login-button" href="/">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-item nav-link" id="login-button" href="{{url_for('showLogin')}}">Login</a>
+                  <a class="nav-item nav-link" id="login-button" href="{{url_for('register')}}">Register</a>
+              </div>
+          </div>
+    </nav>
+  </div>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+         {% block content %}{% endblock %}
+  </body>
+</html>
